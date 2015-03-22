@@ -1,5 +1,7 @@
 var express = require('express'); // Express module
 
+require('./api/api');
+
 var mysql = require('mysql'); // MySQL module
 
 // Create DB connection
