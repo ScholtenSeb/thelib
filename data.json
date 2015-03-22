@@ -1,0 +1,32 @@
+[
+	{
+		"name" : "Red",
+		"type" : "book",
+		"description" : "Bla Bla Bla"
+	},
+	{
+		"name" : "Green",
+		"type" : "book",
+		"description" : "Bla Bla Bla"
+	},
+	{
+		"name" : "Sky",
+		"type" : "paper",
+		"description" : "Bla Bla Bla"
+	},
+	{
+		"name" : "Earth",
+		"type" : "paper",
+		"description" : "Bla Bla Bla"
+	},
+	{
+		"name" : "Tree",
+		"type" : "article",
+		"description" : "Bla Bla Bla"
+	},
+	{
+		"name" : "PoMo",
+		"type" : "article",
+		"description" : "Bla Bla Bla"
+	}
+]
