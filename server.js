@@ -1,48 +1,29 @@
-var express = require('express'); // Express module
+var express = require('express'),
+	api = require('./routes/api'),
+	web = require('./routes/web'),
+	ejs = require('ejs');
 
-require('./api/api');
-
-var mysql = require('mysql'); // MySQL module
-
-// Create DB connection
-var conn = mysql.createConnection({
-	host : 'dedi409.jnb1.host-h.net',
-	user : 'db_admin',
-	password : 'NhMVSm48',
-	database : 'db_thelib'
-});
+//var mysql = require('mysql'); // MySQL module
 
 // Init app
 var app = express();
 
-app.use(express.static(__dirname + '/public')); //Path config    
+app.use(express.static(__dirname + '/public')); //Path config 
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+
+
+app.set('views', __dirname + '/views');  
+app.engine('html', ejs.renderFile);
+app.set('view engine', 'ejs');
 
 
 // Routes - API
-app.get('/api/v1/:type?', function (req, res) {
+app.get('/api/v1/docs/type/:type?', api.getDocs);
 
-	var type = req.params.type; // Get type param from URL
-
-	// Query database
-	conn.query( 'SELECT * FROM tl_docs WHERE type = ?' , [type] , function (error, results) {
-
-		if(error) {
-			throw error; // Throw error
-		} else {
-			//console.log('Requested: '+type);
-			res.json(results); // Render results in json format
-		}
-
-	});
-
-	//conn.end(); // Close DB connection;
-	
-});
 
 // Routes - Front-End
-app.get('*', function (req, res) {
-	res.sendfile('/public/index.html'); //Render front-end (angular)
-});
+app.get('/', web.index );
+app.get('*', web.notFound );
 
 
 // Server

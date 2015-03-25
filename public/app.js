@@ -12,7 +12,7 @@ lib.controller('LibCtrl', ['$scope','$http', function ($scope, $http) {
 
 lib.service('getDocs', [ '$http', function ($http) {
 
-	var baseUrl = 'api/v1/';
+	var baseUrl = 'api/v1/docs/type/';
 
 	this.books = $http.get(baseUrl+'book');
 	this.articles = $http.get(baseUrl+'article');
@@ -45,16 +45,16 @@ lib.controller('PapersCtrl', ['$scope','getDocs', function ($scope,getDocs) {
 
 lib.config( function ($routeProvider) {
 	$routeProvider.when('/', {
-		templateUrl	: 'views/home.html',
+		templateUrl	: 'partials/home.html',
 		controller	: 'LibCtrl'
 	}).when('/books', {
-		templateUrl	: 'views/books.html',
+		templateUrl	: 'partials/books.html',
 		controller	: 'BooksCtrl'
 	}).when('/articles', {
-		templateUrl	: 'views/articles.html',
+		templateUrl	: 'partials/articles.html',
 		controller	: 'ArticlesCtrl'
 	}).when('/papers', {
-		templateUrl	: 'views/papers.html',
+		templateUrl	: 'partials/papers.html',
 		controller	: 'PapersCtrl'
 	}).otherwise({
 		redirectTo	: '/'
