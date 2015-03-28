@@ -1,65 +1,101 @@
-var lib = angular.module('app', ['ngRoute']);
+var lib = angular.module('app', ['ngRoute','ngSanitize']);
 
-lib.controller('LibCtrl', ['$scope','$http', function ($scope, $http) {
+lib.controller('LibCtrl', ['$scope','$location', function ($scope, $location) {
 
-	// var type = $routeParams.type;
-
-	// $http.get('api/v1/'+type).success( function (data) {
-	// 	$scope.docs = data;
-	// });
+	$scope.isActive = function (viewLocation) { 
+        return viewLocation === $location.path();
+    };
 	
 }]);
 
 lib.service('getDocs', [ '$http', function ($http) {
 
-	var baseUrl = 'api/v1/docs/type/';
+	var docsBaseURL = 'api/v1/docs/type/';
+	var oneDocBaseURL = 'api/v1/docs/id/'
 
-	this.books = $http.get(baseUrl+'book');
-	this.articles = $http.get(baseUrl+'article');
-	this.papers = $http.get(baseUrl+'paper');
+
+
+	this.docs = function (type) {
+		return $http.get(docsBaseURL+type);
+	}
+
+	this.oneDoc = function (id) {
+		return $http.get(oneDocBaseURL+id);
+	}
 
 }]);
 
 lib.controller('BooksCtrl', ['$scope','getDocs', function ($scope,getDocs) {
-	getDocs.books.success(function(data){
+	getDocs.docs('book').success(function(data){
 		$scope.documents = data;
 	});
-	console.log('Viewing: books')
 }]);
 
 lib.controller('ArticlesCtrl', ['$scope','getDocs', function ($scope,getDocs) {
-	getDocs.articles.success(function(data){
+	getDocs.docs('article').success(function(data){
 		$scope.documents = data;
 	});
-	console.log('Viewing: articles')
 }]);
 
 lib.controller('PapersCtrl', ['$scope','getDocs', function ($scope,getDocs) {
-	getDocs.papers.success(function(data){
+	getDocs.docs('paper').success(function(data){
 		$scope.documents = data;
 	});
-	console.log('Viewing: papers')
 }]);
+
+lib.controller('HomeCtrl', ['$scope','getDocs', function ($scope,getDocs) {
+	
+}]);
+
+lib.controller('DocCtrl', ['$scope', '$routeParams','$rootScope','getDocs', function ($scope,$routeParams,$rootScope,getDocs) {
+	var id = $routeParams.id;
+	getDocs.oneDoc(id).success(function(data){
+		$scope.document = data[0];
+		$scope.document.summary = markdown.toHTML($scope.document.summary);
+		$rootScope.page.title = $scope.document.title;
+	});
+	
+}])
 
 
 
 lib.config( function ($routeProvider) {
 	$routeProvider.when('/', {
+		title : 'Welcome',
 		templateUrl	: 'partials/home.html',
-		controller	: 'LibCtrl'
+		controller	: 'HomeCtrl'
 	}).when('/books', {
+		title : 'Books',
 		templateUrl	: 'partials/books.html',
 		controller	: 'BooksCtrl'
 	}).when('/articles', {
+		title : 'Articles',
 		templateUrl	: 'partials/articles.html',
 		controller	: 'ArticlesCtrl'
 	}).when('/papers', {
+		title : 'Papers',
 		templateUrl	: 'partials/papers.html',
 		controller	: 'PapersCtrl'
+	}).when('/document/:id', {
+		templateUrl	: 'partials/document.html',
+		controller	: 'DocCtrl'
 	}).otherwise({
 		redirectTo	: '/'
 	});
+
+
 });
+
+lib.run(['$rootScope', function ($rootScope) {
+	$rootScope.page = {
+		setTitle : function(title) {
+			this.title = title;
+		}
+	}
+	$rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+        $rootScope.page.setTitle(current.$$route.title || 'Default Title');
+    });
+}])
 
 
 

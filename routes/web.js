@@ -7,3 +7,7 @@ exports.index = function (req, res) {
 exports.notFound = function (req, res) {
 	res.render('404.html');
 }
+
+exports.login = function (req, res) {
+	res.render('login.html');
+}
