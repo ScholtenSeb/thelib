@@ -52,6 +52,9 @@ lib.controller('DocCtrl', ['$scope', '$routeParams','$rootScope','getDocs', func
 	getDocs.oneDoc(id).success(function(data){
 		$scope.document = data[0];
 		$scope.document.summary = markdown.toHTML($scope.document.summary);
+		if ($scope.document.img == null) {
+			$scope.document.img = 'sample.jpg'
+		};
 		$rootScope.page.title = $scope.document.title;
 	});
 	

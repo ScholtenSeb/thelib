@@ -1,4 +1,12 @@
-<div class="col-lg-6">
+<div class="row">
+		<div class="col-lg-12">
+			<h2 class="page-header text-center" ng-bind="document.title"></h2>
+		</div>
+</div>
+
+
+<div ng-bind-html="document.summary" class="col-lg-8 col-md-8"></div>
+<div class="col-lg-4 col-md-4">
+	<h6>Author: {{document.author}}</h6>
 	<img class="doc-img" src="images/{{document.img}}">
 </div>
-<div ng-bind-html="document.summary" class="col-lg-6"></div>
