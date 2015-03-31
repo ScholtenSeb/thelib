@@ -1,1 +1,2 @@
-Just random text for now
+# The Library
+## An online library project for IDV 301 at Open Window
