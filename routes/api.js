@@ -34,3 +34,17 @@ exports.getOneDoc = function (req, res) {
 	 connection.end();
 
 }
+
+exports.getAllDocs = function (req, res) {
+
+	var connection = mysql.createConnection(dbArgs),
+		type = req.params.type,
+		qString = 'SELECT * FROM docs'
+
+	connection.query( qString , function (error, results) {
+		if(error) throw error; else res.json(results);
+	});
+
+	 connection.end();
+
+}

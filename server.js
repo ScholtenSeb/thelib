@@ -22,8 +22,8 @@ app.set('view engine', 'ejs');
 
 
 // Routes - API
+app.get('/api/v1/docs/', api.getAllDocs);
 app.get('/api/v1/docs/type/:type?', api.getDocs);
-
 app.get('/api/v1/docs/id/:id?', api.getOneDoc);
 
 

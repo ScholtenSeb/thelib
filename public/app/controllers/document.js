@@ -4,6 +4,12 @@ function LibController ($scope,$location) {
     };
 }
 
+function HomeController ($scope,$location,getDocs) {
+	getDocs.docs('all').success(function(data){
+		$scope.documents = data;
+	});
+}
+
 function BooksController ($scope,getDocs) {
 	getDocs.docs('book').success(function(data){
 		$scope.documents = data;

@@ -42,9 +42,18 @@
 	  </div>
 	  <div class="collapse navbar-collapse" id="navbar-collapse-01">
 	    <ul class="nav navbar-nav">
-	    	<li ng-class="{ active: isActive('/books')}" ><a href="#books"><span class="glyphicon glyphicon-book"></span> Books</a></li>
-			<li ng-class="{ active: isActive('/articles')}" ><a href="#articles"><span class="glyphicon glyphicon-list"></span> Articles</a></li>
-			<li ng-class="{ active: isActive('/papers')}" ><a href="#papers"><span class="glyphicon glyphicon-paperclip"></span> Papers</a></li>
+	    	<li ng-class="{ active: isActive('/books')}" >
+	    		<a href="#books"><span class="glyphicon glyphicon-book"></span> Books</a>
+	    	</li>
+			<li ng-class="{ active: isActive('/articles')}" >
+				<a href="#articles"><span class="glyphicon glyphicon-list"></span> Articles</a>
+			</li>
+			<li ng-class="{ active: isActive('/papers')}" >
+				<a href="#papers"><span class="glyphicon glyphicon-paperclip"></span> Papers</a>
+			</li>
+			<li>
+				<a href="/api/v1/docs" target="_blank"><span class="glyphicon glyphicon-star"></span> API</a>
+			</li>
 	    </ul>
 	    <form class="navbar-form navbar-right" role="search">
 	      <div class="form-group">

@@ -1,0 +1,23 @@
+<div class="row">
+		<div class="col-lg-12">
+			<h2 class="page-header text-center">Welcome to The Library</h2>
+		</div>
+</div>
+
+<div class="text-center">
+	<h4>Books, Articles and Papers<small> - All in one place</small></h4>
+	<p>
+		Doing some research for a project? Just search our library of books, articles and papers by students.
+	</p><br><br>
+</div>
+
+<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="doc in documents | filter:search">
+	<a href="#/document/{{doc.id}}">
+	<div class="document doc-book" style="background-image: url(images/{{doc.img}})">
+		<div class="doc-title">
+			<h5>{{doc.title}}</h5>
+			<small>{{doc.author}}</small>
+		</div>
+	</div>
+	</a>
+</div>
