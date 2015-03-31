@@ -7,6 +7,9 @@
 
 <div ng-bind-html="document.summary" class="col-lg-8 col-md-8"></div>
 <div class="col-lg-4 col-md-4">
+	<div ng-controller="FavCtrl">
+		<button ng-click="ToggleFav()" class="btn btn-warning">{{status}}</button>
+	</div>
 	<h6>Author: {{document.author}}</h6>
 	<img class="doc-img" src="images/{{document.img}}">
 </div>
